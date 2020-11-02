@@ -8,8 +8,8 @@ public class KonsoliIO implements IO {
 
     public KonsoliIO() {
         lukija = new Scanner(System.in);
-    }    
-    
+    }
+
     public int nextInt() {
         return lukija.nextInt();
     }
