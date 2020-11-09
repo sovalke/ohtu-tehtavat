@@ -17,27 +17,27 @@ public class Kauppa {
     }
 
     public void aloitaAsiointi() {
-        ostoskori = new Ostoskori();
+        this.ostoskori = new Ostoskori();
     }
 
     public void poistaKorista(int id) {
-        Tuote t = varasto.haeTuote(id); 
-        varasto.palautaVarastoon(t);
+        Tuote t = this.varasto.haeTuote(id); 
+        this.varasto.palautaVarastoon(t);
     }
 
     public void lisaaKoriin(int id) {
-        if (varasto.saldo(id)>0) {
-            Tuote t = varasto.haeTuote(id);             
-            ostoskori.lisaa(t);
-            varasto.otaVarastosta(t);
+        if (this.varasto.saldo(id)>0) {
+            Tuote t = this.varasto.haeTuote(id);             
+            this.ostoskori.lisaa(t);
+            this.varasto.otaVarastosta(t);
         }
     }
 
     public boolean tilimaksu(String nimi, String tiliNumero) {
-        int viite = viitegeneraattori.uusi();
-        int summa = ostoskori.hinta();
+        int viite = this.viitegeneraattori.uusi();
+        int summa = this.ostoskori.hinta();
         
-        return pankki.tilisiirto(nimi, viite, tiliNumero, kaupanTili, summa);
+        return this.pankki.tilisiirto(nimi, viite, tiliNumero, this.kaupanTili, summa);
     }
 
 }

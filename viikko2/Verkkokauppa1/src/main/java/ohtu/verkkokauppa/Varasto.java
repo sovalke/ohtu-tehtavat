@@ -3,29 +3,19 @@ package ohtu.verkkokauppa;
 import java.util.*;
 
 public class Varasto implements Sailytystila {
-
-    private static Varasto instanssi;
-
-    public static Varasto getInstance() {
-        if (instanssi == null) {
-            instanssi = new Varasto();
-        }
-
-        return instanssi;
-    }
     
-    private Kirjanpito kirjanpito;
-    private HashMap<Tuote, Integer> saldot;  
+    public Kirjanpito kirjanpito;
+    public HashMap<Tuote, Integer> saldot;  
     
-    private Varasto() {
-        kirjanpito = Kirjanpito.getInstance();
-        saldot = new HashMap<Tuote, Integer>();
+    public Varasto(Kirjanpito k) {
+        this.kirjanpito = k;
+        this.saldot = new HashMap<Tuote, Integer>();
         alustaTuotteet();
     }
             
     @Override
     public Tuote haeTuote(int id){
-        for (Tuote t : saldot.keySet()) {
+        for (Tuote t : this.saldot.keySet()) {
             if ( t.getId()==id) return t;
         }
         
