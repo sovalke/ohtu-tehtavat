@@ -40,6 +40,28 @@ public class AuthenticationService {
 
     private boolean invalid(String username, String password) {
         // validity check of username and password
+        
+        // I the username long enough?
+        if(username.length() < 3) {
+            return true;
+        }
+        
+        // Does it contain something else besides letters a-z?
+        if(!username.matches("^[a-zA-Z]*$")) {
+            return true;
+        }
+        
+
+
+        // I sthe password too short?
+        if (password.length() <= 8) {
+            return true;
+        }
+        
+        // Does the password consist only from letters a-z?
+        if(password.matches("^[a-zA-Z]*$")) {
+            return true;
+        }
 
         return false;
     }
