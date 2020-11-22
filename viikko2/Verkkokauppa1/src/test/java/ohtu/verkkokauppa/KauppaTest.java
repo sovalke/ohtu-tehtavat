@@ -19,8 +19,9 @@ public class KauppaTest {
         varasto = mock(Varasto.class);
         k = new Kauppa(varasto, pankki, viite); 
         
-        // määritellään että viitegeneraattori palauttaa viitten 42
-        when(viite.uusi()).thenReturn(42);
+        // määritellään että viitegeneraattori palauttaa viitten 42, seuraavaksi viitteen 43
+        when(viite.uusi()).thenReturn(42).thenReturn(43);
+        
         
         // määritellään että tuote numero 1 on maito jonka hinta on 5 ja saldo 10
         when(varasto.saldo(1)).thenReturn(10); 
@@ -37,7 +38,7 @@ public class KauppaTest {
 
     @Test
     public void ostoksenPaaytyttyaPankinMetodiaTilisiirtoKutsutaan() {
-
+        
         k.aloitaAsiointi();
         k.lisaaKoriin(1);     // ostetaan tuotetta numero 1 eli maitoa
         k.tilimaksu("pekka", "12345");
@@ -49,7 +50,8 @@ public class KauppaTest {
     
     @Test
     public void lisataanKoriinTuoteJotaOnJaOstetaanSe() {
-
+        // määritellään että viitegeneraattori palauttaa viitten 42
+        
         k.aloitaAsiointi();
         k.lisaaKoriin(1);     // ostetaan tuotetta numero 1 eli maitoa
         k.tilimaksu("pekka", "12345");
@@ -89,6 +91,31 @@ public class KauppaTest {
         k.tilimaksu("pekka", "12345");
 
         verify(pankki).tilisiirto("pekka", 42, "12345", "33333-44455", 5);   
+    }
+    
+    @Test
+    public void aloitaAsiointiNollaaAsiakkaan() {
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);
+        k.tilimaksu("pekka", "12345");
+        
+        k.aloitaAsiointi();
+        k.lisaaKoriin(2);
+        k.tilimaksu("sonja", "11111");
+        
+        verify(pankki).tilisiirto("pekka", 42, "12345", "33333-44455", 5);
+        verify(pankki).tilisiirto("sonja", 43, "11111", "33333-44455", 7);
+    }
+    
+    @Test
+    public void poistaKorista() {
+        k.aloitaAsiointi();
+        k.lisaaKoriin(1);
+        k.lisaaKoriin(2);
+        k.poistaKorista(1);
+        
+        k.tilimaksu("pekka", "12345");
+        verify(pankki).tilisiirto("pekka", 42, "12345", "33333-44455", 7);
     }
     
 }
