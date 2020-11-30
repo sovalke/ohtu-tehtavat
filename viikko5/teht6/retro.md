@@ -1,4 +1,4 @@
-##Glad, sad, mad
+## Glad, sad, mad
 
 Glad, sad, mad -tekniikassa sprinttiin osallistujien huomiot ja keskustelunaiheet jaetaan kolmeen kategoriaan: iloisiin, surullisiin ja vihaisiin (glad, sad, mad).
 
