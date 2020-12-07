@@ -30,7 +30,14 @@ public class Main {
         for (Player player : stats.matches(m3)) {
             System.out.println(player);
         }
-
+        
+        // Or
+        System.out.println("Or");
+        Matcher m4 = new Or( new HasAtLeast(40, "goals"), new HasAtLeast(60, "assists")); 
+        for (Player player : stats.matches(m4)) {
+            System.out.println(player);
+        }
+        
         System.out.println("THE REST");
         for (Player player : stats.matches(m)) {
             System.out.println(player);
